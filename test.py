@@ -7,10 +7,8 @@ Author : Ruello V., Tirel A.
 Description : 3ième TD algorithme numerique
 """
 
-from householder import *
 from qr_transform import *
-# ---------------------------------#
-
+from householder import *
 import numpy as np
 import math
 import matplotlib.pyplot as plt
