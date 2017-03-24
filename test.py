@@ -6,10 +6,9 @@ File : test.py
 Author : Ruello V., Tirel A.
 Description : 3ième TD algorithme numerique
 """
-
-from householder import *
 # ---------------------------------#
 
+from householder import *
 import numpy as np
 import math
 import matplotlib.pyplot as plt
