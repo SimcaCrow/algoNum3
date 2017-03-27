@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
+# coding: utf-8
 # ---------------------------------#
 """
 File : image.py
@@ -7,9 +8,10 @@ Description : 3ième TD algorithme numerique
 """
 # ---------------------------------#
 
-# import numpy as np
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpi
+
 
 # ---------------------------------#
 
@@ -24,10 +26,18 @@ def img_plot():
     plt.imshow(img2)
     plt.show()
 
+"""
+Renvoie la matrice de triplets rgb de l'image
+"""
+def get_image_matrix(path):
+    return mpi.imread(path)
+
+def image_svd(matrix):
+    (U, S, V) = np.linalg.svd(matrix)
+
 
 # ---------------------------------#
 if __name__ == '__main__':
-
     img_plot()
 
 # ---------------------------------#
