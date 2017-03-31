@@ -46,21 +46,40 @@ des coefficients diagonaux est décroissante
 """
 def create_diag_matrix(n):
     A = np.zeros((n,n))
-    prec = n+1 #prec doit être au plus supérieur à n
+    prec = n+20 #prec doit être au plus supérieur à n
     for i in xrange(n):
         A[i,i] = random.randint(0, prec)
         prec = A[i,i]
     return A
 
-def algorithm(A, NMax):
-    n = len(A)
-    U = np.eyes(n)
-    V = np.eyes(n)
-    S = A
+"""
+Fonction qui retourne une matrice carrée aléatoire de taille n x n
+"""
+def create_random_matrix(n):
+    A = np.zeros((n,n))
+    for i in xrange(n):
+        for j in xrange(n):
+            A[i,j] = random.randint(0, 20)
+    return A
+
+def algorithm(BD, NMax):
+    n = len(BD)
+    U = np.eye(n)
+    V = np.eye(n)
+    S = BD
     for i in xrange(NMax):
-        (Q1, R1) = np.linalg.qr(S)
-        (Q2, R2) = np.linalg.qr(R1)
+        (Q1, R1) = np.linalg.qr(np.transpose(S))
+        (Q2, R2) = np.linalg.qr(np.transpose(R1))
         S = R2
         U = np.dot(U, Q2)
         V = np.dot(np.transpose(Q1), V)
     return (U, S, V)
+
+def somme_abs_valeurs_extra_diagonales(A):
+    n = len(A)
+    sum = 0.0
+    for i in xrange(n):
+        for j in xrange(n):
+            if i != j:
+                sum += np.abs(A[i,j])
+    return sum
