@@ -1,18 +1,13 @@
-﻿# -*- coding: utf-8 -*-
-
-import numpy as np
-#import householder as hh
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 # coding: utf-8
 # ---------------------------------#
 """
 File : test.py
-Author : Ruello V., Tirel A.
+Author : Tirel A.
 Description : 3ième TD algorithme numerique
 """
 # ---------------------------------#
 
-import matplotlib as mp
 import numpy as np
 
 # ---------------------------------#
@@ -37,7 +32,6 @@ def norme_vecteur(u):
     return np.sqrt(sum_tmp)
 
 # ---------------------------------#
-
 
 def bidiagonalize(M):
     """ Factorise la matrice M (n x m) selon Q_l x B x Q_r = M, de telle sorte que B soit bidiagonale.
@@ -69,6 +63,7 @@ def bidiagonalize(M):
 
     return (Q_l, B, Q_r)
 
+# ---------------------------------#
 
 def extend(N, M, i0, j0):
     """ Copie une matrice N (n1 x n2) dans une matrice M (m1 x m2). Les éléments de M concernés sont donc remplacés par ceux de N. Le point (0, 0) de N est placé en (i0, j0) dans M. Retourne M.
@@ -84,13 +79,16 @@ def extend(N, M, i0, j0):
 
     return M
 
-M=np.arange(15).reshape(3,5)
-print (M)
-print (M.size)
-print (np.zeros(3)[2])
-(A,B,C)=bidiagonalize(M)
-print "test"
-print (A)
-print (B)
-print (C)
-print (np.dot(A,np.dot(B,C)))
+# ---------------------------------#
+if __name__ == '__main__':
+    M=np.arange(15).reshape(3,5)
+    print (M)
+    print (M.size)
+    print (np.zeros(3)[2])
+    (A,B,C)=bidiagonalize(M)
+    print "test"
+    print (A)
+    print (B)
+    print (C)
+    print (np.dot(A,np.dot(B,C)))
+# ---------------------------------#

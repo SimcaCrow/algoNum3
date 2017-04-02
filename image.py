@@ -4,7 +4,7 @@
 # ---------------------------------#
 """
 File : image.py
-Author : El-Habr C.
+Author : Ruello V.
 Description : 3ième TD algorithme numerique
 """
 # ---------------------------------#
@@ -16,15 +16,18 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpi
 import matplotlib
 
-
 # ---------------------------------#
 
 def img_plot(matrix):
     plt.imshow(matrix)
     plt.show()
 
+# ---------------------------------#
+
 def load_picture(path):
     return  mpi.imread(path)
+
+# ---------------------------------#
 
 """
 Fonction calculant le SVD de la matrice
@@ -37,6 +40,7 @@ def svd(matrix):
     # return algorithm(matrix, 500)
     return np.linalg.svd(matrix, full_matrices=True)
 
+# ---------------------------------#
 
 """
 Renvoie les matrices (r, g, b) de l'image
@@ -52,6 +56,8 @@ def get_rgb_matrices(rgb):
             g[i,j] = rgb[i,j,1]
             b[i,j] = rgb[i,j,2]
     return (r, g, b)
+
+# ---------------------------------#
 
 """
 Renvoie la matrice reconsitutée à l'aide du SVD et en gardant les k premières
@@ -71,12 +77,14 @@ def matrix_svd(matrix, k):
 
     return reconstimg
 
-"""
 
-"""
+# ---------------------------------#
+
 def matrix_svd_eighen_values(matrix):
     (U, s, V) = svd(matrix)
     return s;
+
+# ---------------------------------#
 
 """
 Fonction calculant la taille de l'image compressée en gardant
@@ -89,11 +97,15 @@ def compute_compressed_size(img, k):
     compressedSize += k * img.shape[1]
     return compressedSize * 3
 
+# ---------------------------------#
+
 """
 Fonction calculant la taille de l'image source
 """
 def compute_source_image_size(img):
     return img.shape[0] * img.shape[1] * img.shape[2]
+
+# ---------------------------------#
 
 """
 Fonction qui prend en paramètre l'image "src".
@@ -116,6 +128,8 @@ def svd_compress(src, k, plot = True):
         print "."
     return img
 
+# ---------------------------------#
+
 """
 Fonction qui affiche un graphe représentant la taille de l'image compressée en Fonction
 du nombre de valeurs singulières gardées.
@@ -133,6 +147,8 @@ def graph_size(img, start = 1, end = 200, step = 1):
     plt.plot(X, Z)
     plt.show()
 
+# ---------------------------------#
+
 def graph_size_efficienty(img, start = 1, end = 500, step = 1):
     X = range(start, end, step)
     Y = list()
@@ -144,6 +160,8 @@ def graph_size_efficienty(img, start = 1, end = 500, step = 1):
     plt.xlabel("k")
     plt.plot(X, Y)
     plt.show()
+
+# ---------------------------------#
 
 def graph_eighen_values(img):
     (r, g, b) = get_rgb_matrices(img)
@@ -160,6 +178,7 @@ def graph_eighen_values(img):
     plt.title(u"Valeur des 50 premières valeurs singulières des matrices r, g, et b")
     plt.show()
 
+# ---------------------------------#
 
 def graph_error_algebric(src, start = 1, end = 50, step = 5):
     X = range(start, end, step)
