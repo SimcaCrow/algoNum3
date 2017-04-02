@@ -141,10 +141,11 @@ def graph_size(img, start = 1, end = 200, step = 1):
     for k in range(start, end, step):
         Y.append(compute_compressed_size(img, k))
     plt.title(u"Taille de l'image compressée en fonction du rang")
-    plt.ylabel(u"Taille de l'image compressée au rang k")
-    plt.xlabel("k")
-    plt.plot(X, Y)
-    plt.plot(X, Z)
+    plt.ylabel(u"Taille de l'image compressée (octets)")
+    plt.xlabel("Rang k")
+    plt.plot(X, Y, label="Image compressée")
+    plt.plot(X, Z, label="Image originale")
+    plt.legend(loc = "bottom right")
     plt.show()
 
 # ---------------------------------#
@@ -155,10 +156,9 @@ def graph_size_efficienty(img, start = 1, end = 500, step = 1):
     srcSize = compute_source_image_size(img)
     for k in range(start, end, step):
         Y.append(compute_compressed_size(img, k) * 1.0 / srcSize)
-    plt.title(u"Graphique représentant le rapport entre la taille de l'image compressée et la taille de l'image d'origine en fonction du rang")
-    plt.ylabel(u"Rapport entre la taille de l'image compressée et la taille de l'image d'origine au rang k")
-    plt.xlabel("k")
-    plt.plot(X, Y)
+    plt.title(u"Rapport de la taille de l'image compressée sur la taille de l'image d'origine en fonction du rang")
+    plt.ylabel(u"(taille de l'image compressée) / (taille de l'image d'origine)")
+    plt.xlabel("Rang k")
     plt.show()
 
 # ---------------------------------#
@@ -171,11 +171,14 @@ def graph_eighen_values(img):
     bs = matrix_svd_eighen_values(b)
 
     X = range(0, 50)
-    plt.plot(X, rs[:50], color='r')
-    plt.plot(X, gs[:50], color='g')
-    plt.plot(X, bs[:50], color='b')
+    plt.plot(X, rs[:50], color='r', label="Composante rouge")
+    plt.plot(X, gs[:50], color='g', label="Composante verte")
+    plt.plot(X, bs[:50], color='b', label="Composante bleue")
 
-    plt.title(u"Valeur des 50 premières valeurs singulières des matrices r, g, et b")
+    plt.title(u"Valeur des 50 premières valeurs singulières des matrices r, g et b")
+    plt.ylabel(u"Valeur singulière")
+    plt.xlabel("Indice")
+    plt.legend(loc = "upper right")
     plt.show()
 
 # ---------------------------------#
@@ -198,11 +201,13 @@ def graph_error_algebric(src, start = 1, end = 50, step = 5):
         R.append(r)
         G.append(g)
         B.append(b)
-    plt.ylabel(u"Erreur algébrique selon les 3 composantes")
-    plt.xlabel("k")
-    plt.plot(X, R, color='r')
-    plt.plot(X, G, color='g')
-    plt.plot(X, B, color='b')
+    plt.title(u"Erreur algébrique selon les 3 composantes en fonction du rang")
+    plt.ylabel(u"Erreur algébrique")
+    plt.xlabel("Rang k")
+    plt.plot(X, R, color='r', label="Composante rouge")
+    plt.plot(X, G, color='g', label="Composante verte")
+    plt.plot(X, B, color='b', label="Composante bleue")
+    plt.legend(loc = "upper right")
     plt.show()
 
 # ---------------------------------#
