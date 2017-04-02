@@ -6,6 +6,7 @@ File : test.py
 Author : Ruello V., Tirel A.
 Description : 3ième TD algorithme numerique
 """
+# ---------------------------------#
 
 from qr_transform import *
 from householder import *
@@ -16,8 +17,7 @@ import matplotlib.pyplot as plt
 # ---------------------------------#
 # Test Householder
 # ---------------------------------#
-#
-#
+
 def test_householder():
     x = np.array([3., 4., 0.])
     y = np.array([0.,0.,5.])
@@ -45,6 +45,8 @@ def test_QR_transform(n):
         print A
         print np.dot(Qt, Rt)
 
+# ---------------------------------#
+
 def test_QR_transforms(n, Nmax):
     BD = create_random_matrix(n)
     (U, S, V) = algorithm(BD, Nmax)
@@ -59,6 +61,8 @@ def test_QR_transforms(n, Nmax):
         print BD
         print res
 
+# ---------------------------------#
+
 def test_convergence(n):
     BD = create_random_matrix(n)
     Ns = range(0, 15, 1)
@@ -70,15 +74,12 @@ def test_convergence(n):
     #plt.plot(Ns, values)
     #plt.show()
 
-
-
-
 # ---------------------------------#
 if __name__ == '__main__':
+
     test_householder()
     test_QR_transform(5)
     test_QR_transforms(5, 1000)
     test_convergence(5)
-
 
 # ---------------------------------#
