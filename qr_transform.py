@@ -12,16 +12,8 @@ Description : 3ième TD algorithme numerique
 import numpy as np
 import random
 import householder
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
 # ---------------------------------#
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-
-# ---------------------------------#
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 
 # U = Id; V = Id; S = BD;
 # For i from 0 to NMax
@@ -86,16 +78,8 @@ def create_random_matrix(n):
             A[i,j] = random.randint(0, 20)
     return A
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 # ---------------------------------#
 
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-# ---------------------------------#
-
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 """
 Fonction de transformation QR faite main
 """
@@ -109,14 +93,8 @@ def qr(A):
         A = np.dot(H, A)
     return Q, A
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 # ---------------------------------#
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-# ---------------------------------#
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 
 def algorithm(BD, NMax):
     n = len(BD)
@@ -142,8 +120,4 @@ def somme_abs_valeurs_extra_diagonales(A):
                 sum += np.abs(A[i,j])
     return sum
 
-<<<<<<< HEAD
 # ---------------------------------#
-=======
-# ---------------------------------#
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889

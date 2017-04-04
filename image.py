@@ -27,16 +27,9 @@ def img_plot(matrix):
 def load_picture(path):
     return  mpi.imread(path)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 # ---------------------------------#
 
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-# ---------------------------------#
-
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 """
 Fonction calculant le SVD de la matrice
 Pour l'instant, elle utilise numpy.
@@ -48,14 +41,8 @@ def svd(matrix):
     # return algorithm(matrix, 500)
     return np.linalg.svd(matrix, full_matrices=True)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 # ---------------------------------#
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-# ---------------------------------#
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 
 """
 Renvoie les matrices (r, g, b) de l'image
@@ -72,16 +59,9 @@ def get_rgb_matrices(rgb):
             b[i,j] = rgb[i,j,2]
     return (r, g, b)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 # ---------------------------------#
 
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-# ---------------------------------#
-
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 """
 Renvoie la matrice reconsitutée à l'aide du SVD et en gardant les k premières
 valeurs singulières
@@ -100,35 +80,14 @@ def matrix_svd(matrix, k):
 
     return reconstimg
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-"""
 
-"""
-=======
-
-# ---------------------------------#
-
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-
-# ---------------------------------#
-
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 def matrix_svd_eighen_values(matrix):
     (U, s, V) = svd(matrix)
     return s;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 # ---------------------------------#
 
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-# ---------------------------------#
-
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 """
 Fonction calculant la taille de l'image compressée en gardant
 les k premières valeurs singulières
@@ -140,32 +99,18 @@ def compute_compressed_size(img, k):
     compressedSize += k * img.shape[1]
     return compressedSize * 3
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 # ---------------------------------#
 
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-# ---------------------------------#
-
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 """
 Fonction calculant la taille de l'image source
 """
 def compute_source_image_size(img):
     return img.shape[0] * img.shape[1] * img.shape[2]
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 # ---------------------------------#
 
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-# ---------------------------------#
-
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 """
 Fonction qui prend en paramètre l'image "src".
 Elle applique la compression, affiche et renvoie l'image décompressée.
@@ -187,16 +132,7 @@ def svd_compress(src, k, plot = True):
         print "."
     return img
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-# ---------------------------------#
 
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-# ---------------------------------#
-
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 """
 Fonction qui affiche un graphe représentant la taille de l'image compressée en Fonction
 du nombre de valeurs singulières gardées.
@@ -208,15 +144,13 @@ def graph_size(img, start = 1, end = 200, step = 1):
     for k in range(start, end, step):
         Y.append(compute_compressed_size(img, k))
     plt.title(u"Taille de l'image compressée en fonction du rang")
-<<<<<<< HEAD
-<<<<<<< HEAD
     plt.ylabel(u"Taille de l'image compressée au rang k")
     plt.xlabel("k")
     plt.plot(X, Y)
     plt.plot(X, Z)
     plt.show()
 
-=======
+
     plt.ylabel(u"Taille de l'image compressée (octets)")
     plt.xlabel("Rang k")
     plt.plot(X, Y, label="Image compressée")
@@ -226,18 +160,7 @@ def graph_size(img, start = 1, end = 200, step = 1):
 
 # ---------------------------------#
 
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-    plt.ylabel(u"Taille de l'image compressée (octets)")
-    plt.xlabel("Rang k")
-    plt.plot(X, Y, label="Image compressée")
-    plt.plot(X, Z, label="Image originale")
-    plt.legend(loc = "bottom right")
-    plt.show()
 
-# ---------------------------------#
-
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 def graph_size_efficienty(img, start = 1, end = 500, step = 1):
     X = range(start, end, step)
     Y = list()
@@ -249,19 +172,15 @@ def graph_size_efficienty(img, start = 1, end = 500, step = 1):
     plt.xlabel("Rang k")
     plt.show()
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 # ---------------------------------#
 
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 def graph_eighen_values(img):
     (r, g, b) = get_rgb_matrices(img)
 
     rs = matrix_svd_eighen_values(r)
     gs = matrix_svd_eighen_values(g)
     bs = matrix_svd_eighen_values(b)
-<<<<<<< HEAD
 
     X = range(0, 50)
     plt.plot(X, rs[:50], color='r')
@@ -272,24 +191,8 @@ def graph_eighen_values(img):
     plt.show()
 
 
-=======
-
-    X = range(0, 50)
-    plt.plot(X, rs[:50], color='r', label="Composante rouge")
-    plt.plot(X, gs[:50], color='g', label="Composante verte")
-    plt.plot(X, bs[:50], color='b', label="Composante bleue")
-
-    plt.title(u"Valeur des 50 premières valeurs singulières des matrices r, g et b")
-    plt.ylabel(u"Valeur singulière")
-    plt.xlabel("Indice")
-    plt.legend(loc = "upper right")
-    plt.show()
-
 # ---------------------------------#
 
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
-# ---------------------------------#
 
 def graph_eighen_values(img):
     (r, g, b) = get_rgb_matrices(img)
@@ -311,7 +214,6 @@ def graph_eighen_values(img):
 
 # ---------------------------------#
 
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 def graph_error_algebric(src, start = 1, end = 50, step = 5):
     X = range(start, end, step)
     R = list()
@@ -330,16 +232,13 @@ def graph_error_algebric(src, start = 1, end = 50, step = 5):
         R.append(r)
         G.append(g)
         B.append(b)
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     plt.ylabel(u"Erreur algébrique selon les 3 composantes")
     plt.xlabel("k")
     plt.plot(X, R, color='r')
     plt.plot(X, G, color='g')
     plt.plot(X, B, color='b')
-=======
-=======
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
+
     plt.title(u"Erreur algébrique selon les 3 composantes en fonction du rang")
     plt.ylabel(u"Erreur algébrique")
     plt.xlabel("Rang k")
@@ -347,10 +246,6 @@ def graph_error_algebric(src, start = 1, end = 50, step = 5):
     plt.plot(X, G, color='g', label="Composante verte")
     plt.plot(X, B, color='b', label="Composante bleue")
     plt.legend(loc = "upper right")
-<<<<<<< HEAD
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
-=======
->>>>>>> ae0e03390d0370d8535c051f71deef491619a889
     plt.show()
 
 # ---------------------------------#
