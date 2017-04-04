@@ -26,6 +26,17 @@ def img_plot(matrix):
 def load_picture(path):
     return  mpi.imread(path)
 
+"""
+Fonction calculant le SVD de la matrice
+Pour l'instant, elle utilise numpy.
+Elle devra utiliser la méthode implémentée dans le
+TP.
+"""
+def svd(matrix):
+    # print matrix
+    # return algorithm(matrix, 500)
+    return np.linalg.svd(matrix, full_matrices=True)
+
 
 """
 Renvoie les matrices (r, g, b) de l'image
@@ -42,34 +53,35 @@ def get_rgb_matrices(rgb):
             b[i,j] = rgb[i,j,2]
     return (r, g, b)
 
+"""
+Renvoie la matrice reconsitutée à l'aide du SVD et en gardant les k premières
+valeurs singulières
+"""
 def matrix_svd(matrix, k):
-    (U, s, V) = np.linalg.svd(matrix, full_matrices=True)
-    #print U.shape, s.shape, V.shape
+    (U, s, V) = svd(matrix)
     reconstimg = np.matrix(U[:, :k]) * np.diag(s[:k]) * np.matrix(V[:k, :])
-    # print '-----'
-    # ucalc = 1
-    # scalc = 1
-    # vcalc = 1
-    # for x in U[:, :k].shape:
-    #     ucalc *= x
-    # for x in s[:k].shape:
-    #     scalc *= x
-    # for x in V[:k, :].shape:
-    #     vcalc *= x
-    # print "Taille = ", ucalc + scalc + vcalc
-    #
-    # print np.matrix(U[:, :k]).shape
-    # print np.diag(s[:k]).shape
-    # print np.matrix(V[:k, :]).shape
-    # print reconstimg.shape
+
+    #Gestion des dépassements d'intensité de couleur
     for i in xrange(reconstimg.shape[0]):
         for j in xrange(reconstimg.shape[1]):
             if reconstimg[i,j] > 1:
                 reconstimg[i,j] = 1
             elif reconstimg[i,j] < 0:
                 reconstimg[i,j] = 0
+
     return reconstimg
 
+"""
+
+"""
+def matrix_svd_eighen_values(matrix):
+    (U, s, V) = svd(matrix)
+    return s;
+
+"""
+Fonction calculant la taille de l'image compressée en gardant
+les k premières valeurs singulières
+"""
 def compute_compressed_size(img, k):
     compressedSize = 0
     compressedSize += img.shape[0] * k
@@ -77,11 +89,17 @@ def compute_compressed_size(img, k):
     compressedSize += k * img.shape[1]
     return compressedSize * 3
 
+"""
+Fonction calculant la taille de l'image source
+"""
 def compute_source_image_size(img):
     return img.shape[0] * img.shape[1] * img.shape[2]
 
-
-def svd_compress(src, k):
+"""
+Fonction qui prend en paramètre l'image "src".
+Elle applique la compression, affiche et renvoie l'image décompressée.
+"""
+def svd_compress(src, k, plot = True):
     (r, g, b) = get_rgb_matrices(src)
     rc = matrix_svd(r, k)
     gc = matrix_svd(g, k)
@@ -92,24 +110,30 @@ def svd_compress(src, k):
             img[i,j,0] = rc[i,j]
             img[i,j,1] = gc[i,j]
             img[i,j,2] = bc[i,j]
-    img_plot(img)
+    if plot:
+        img_plot(img)
+    else:
+        print "."
     return img
 
-
-def graph_size(img, start = 0, end = 200, step = 1):
+"""
+Fonction qui affiche un graphe représentant la taille de l'image compressée en Fonction
+du nombre de valeurs singulières gardées.
+"""
+def graph_size(img, start = 1, end = 200, step = 1):
     X = range(start, end, step)
     Y = list()
     Z = [compute_source_image_size(img)] *  ((end-start) / step)
     for k in range(start, end, step):
         Y.append(compute_compressed_size(img, k))
-    plt.title(u"Graphique représentant la taille de l'image compressée en fonction du rang")
+    plt.title(u"Taille de l'image compressée en fonction du rang")
     plt.ylabel(u"Taille de l'image compressée au rang k")
     plt.xlabel("k")
     plt.plot(X, Y)
     plt.plot(X, Z)
     plt.show()
 
-def graph_size_efficienty(img, start = 0, end = 500, step = 1):
+def graph_size_efficienty(img, start = 1, end = 500, step = 1):
     X = range(start, end, step)
     Y = list()
     srcSize = compute_source_image_size(img)
@@ -121,16 +145,45 @@ def graph_size_efficienty(img, start = 0, end = 500, step = 1):
     plt.plot(X, Y)
     plt.show()
 
-def graph_error_algebric(img, start = 0, end = 500, step = 1):
-    X = range(start, end, step)
-    Y = list()
+def graph_eighen_values(img):
+    (r, g, b) = get_rgb_matrices(img)
 
+    rs = matrix_svd_eighen_values(r)
+    gs = matrix_svd_eighen_values(g)
+    bs = matrix_svd_eighen_values(b)
+
+    X = range(0, 50)
+    plt.plot(X, rs[:50], color='r')
+    plt.plot(X, gs[:50], color='g')
+    plt.plot(X, bs[:50], color='b')
+
+    plt.title(u"Valeur des 50 premières valeurs singulières des matrices r, g, et b")
+    plt.show()
+
+
+def graph_error_algebric(src, start = 1, end = 50, step = 5):
+    X = range(start, end, step)
+    R = list()
+    G = list()
+    B = list()
     for k in range(start, end, step):
-        Y.append(compute_compressed_size(img, k) * 1.0 / srcSize)
-    plt.title(u"Graphique représentant le rapport entre la taille de l'image compressée et la taille de l'image d'origine en fonction du rang")
-    plt.ylabel(u"Rapport entre la taille de l'image compressée et la taille de l'image d'origine au rang k")
+        comp = svd_compress(src, k, False)
+        r = 0
+        g = 0
+        b = 0
+        for i in xrange(src.shape[0]):
+            for j in xrange(src.shape[1]):
+                r += (src[i,j,0] - comp[i,j,0])**2
+                g += (src[i,j,1] - comp[i,j,1])**2
+                b += (src[i,j,2] - comp[i,j,2])**2
+        R.append(r)
+        G.append(g)
+        B.append(b)
+    plt.ylabel(u"Erreur algébrique selon les 3 composantes")
     plt.xlabel("k")
-    plt.plot(X, Y)
+    plt.plot(X, R, color='r')
+    plt.plot(X, G, color='g')
+    plt.plot(X, B, color='b')
     plt.show()
 
 # ---------------------------------#
@@ -141,7 +194,7 @@ if __name__ == '__main__':
     imgSrc = load_picture(imageName)
     svd_compress(imgSrc, k)
     graph_size(imgSrc)
-    graph_size_efficienty(imgSrc)
-
+    graph_eighen_values(imgSrc)
+    graph_error_algebric(imgSrc)
 
 # ---------------------------------#

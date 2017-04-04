@@ -3,6 +3,7 @@
 
 import numpy as np
 import random
+import householder
 
 # U = Id; V = Id; S = BD;
 # For i from 0 to NMax
@@ -62,14 +63,28 @@ def create_random_matrix(n):
             A[i,j] = random.randint(0, 20)
     return A
 
+"""
+Fonction de transformation QR faite main
+"""
+def qr(A):
+    m, n = A.shape
+    Q = np.eye(m)
+    for i in range(n - (m == n)):
+        H = np.eye(m)
+        H[i:, i:] = householder.householder(A[i:, i])
+        Q = np.dot(Q, H)
+        A = np.dot(H, A)
+    return Q, A
+
+
 def algorithm(BD, NMax):
     n = len(BD)
     U = np.eye(n)
     V = np.eye(n)
     S = BD
     for i in xrange(NMax):
-        (Q1, R1) = np.linalg.qr(np.transpose(S))
-        (Q2, R2) = np.linalg.qr(np.transpose(R1))
+        (Q1, R1) = qr(np.transpose(S))
+        (Q2, R2) = qr(np.transpose(R1))
         S = R2
         U = np.dot(U, Q2)
         V = np.dot(np.transpose(Q1), V)
