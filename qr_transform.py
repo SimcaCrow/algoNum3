@@ -1,9 +1,22 @@
 #!/usr/bin/env python
 # coding: utf-8
+# -*- coding: utf-8 -*-
+# ---------------------------------#
+"""
+File : image.py
+Author : Ruello V.
+Description : 3ième TD algorithme numerique
+"""
+# ---------------------------------#
 
 import numpy as np
 import random
 import householder
+<<<<<<< HEAD
+=======
+
+# ---------------------------------#
+>>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 
 # U = Id; V = Id; S = BD;
 # For i from 0 to NMax
@@ -30,6 +43,8 @@ def create_orthogonal_matrix(n):
         bools[rand_indice] = True
     return A
 
+# ---------------------------------#
+
 """
 Fonction permettant de générer une matrice triangualire supérieure aléatoire
 """
@@ -40,6 +55,7 @@ def create_triang_sup_matrix(n):
             A[i,j] = random.randint(0, n) #On prend n, ça peut changer. Pas de raison précise
     return A
 
+# ---------------------------------#
 
 """
 Fonction permettant de générer une matrice diagonale aléatoire dont la suite
@@ -53,6 +69,8 @@ def create_diag_matrix(n):
         prec = A[i,i]
     return A
 
+# ---------------------------------#
+
 """
 Fonction qui retourne une matrice carrée aléatoire de taille n x n
 """
@@ -63,6 +81,11 @@ def create_random_matrix(n):
             A[i,j] = random.randint(0, 20)
     return A
 
+<<<<<<< HEAD
+=======
+# ---------------------------------#
+
+>>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 """
 Fonction de transformation QR faite main
 """
@@ -76,6 +99,10 @@ def qr(A):
         A = np.dot(H, A)
     return Q, A
 
+<<<<<<< HEAD
+=======
+# ---------------------------------#
+>>>>>>> ae0e03390d0370d8535c051f71deef491619a889
 
 def algorithm(BD, NMax):
     n = len(BD)
@@ -90,6 +117,8 @@ def algorithm(BD, NMax):
         V = np.dot(np.transpose(Q1), V)
     return (U, S, V)
 
+# ---------------------------------#
+
 def somme_abs_valeurs_extra_diagonales(A):
     n = len(A)
     sum = 0.0
@@ -98,3 +127,5 @@ def somme_abs_valeurs_extra_diagonales(A):
             if i != j:
                 sum += np.abs(A[i,j])
     return sum
+
+# ---------------------------------#
